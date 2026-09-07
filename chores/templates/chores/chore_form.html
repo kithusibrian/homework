@@ -1,10 +1,9 @@
-{% extends "chores/base.html" %}
-
-{% block content %}
-<h1>{% if chore %}Edit{% else %}Create{% endif %} chore for {{ household.name }}</h1>
+{% extends "chores/base.html" %} {% block content %}
+<h1>
+  {% if chore %}Edit{% else %}Create{% endif %} chore for {{ household.name }}
+</h1>
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save chore</button>
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Save chore</button>
 </form>
 {% endblock %}

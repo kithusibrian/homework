@@ -1,31 +1,32 @@
-{% extends "chores/base.html" %}
-
-{% block content %}
+{% extends "chores/base.html" %} {% block content %}
 <h1>{{ household.name }}</h1>
 <p>Join code: <strong>{{ household.join_code }}</strong></p>
 <p><a href="{% url 'chores:create_chore' household.id %}">Create a chore</a></p>
 <ul>
-{% for chore in chores %}
-    <li>
-        <strong>{{ chore.name }}</strong> - {{ chore.get_status_display }} - due {{ chore.due_date }}
-        {% if chore.description %}<p>{{ chore.description }}</p>{% endif %}
-        <a href="{% url 'chores:edit_chore' chore.id %}">Edit</a>
-        {% if chore.assignee %}<span>Assigned to {{ chore.assignee.username }}</span>{% endif %}
-        {% if chore.status == "available" or chore.status == "declined" %}
-            <form method="post" action="{% url 'chores:claim_chore' chore.id %}">
-                {% csrf_token %}<button type="submit">Claim</button>
-            </form>
-        {% elif chore.assignee == user and chore.status == "assigned" %}
-            <form method="post" action="{% url 'chores:complete_chore' chore.id %}">
-                {% csrf_token %}<button type="submit">Complete</button>
-            </form>
-            <form method="post" action="{% url 'chores:decline_chore' chore.id %}">
-                {% csrf_token %}<button type="submit">Decline</button>
-            </form>
-        {% endif %}
-    </li>
-{% empty %}
-    <li>No chores yet.</li>
-{% endfor %}
+  {% for chore in chores %}
+  <li>
+    <strong>{{ chore.name }}</strong> - {{ chore.get_status_display }} - due {{
+    chore.due_date }} {% if chore.description %}
+    <p>{{ chore.description }}</p>
+    {% endif %}
+    <a href="{% url 'chores:edit_chore' chore.id %}">Edit</a>
+    {% if chore.assignee %}<span>Assigned to {{ chore.assignee.username }}</span
+    >{% endif %} {% if chore.status == "available" or chore.status == "declined"
+    %}
+    <form method="post" action="{% url 'chores:claim_chore' chore.id %}">
+      {% csrf_token %}<button type="submit">Claim</button>
+    </form>
+    {% elif chore.assignee == user and chore.status == "assigned" %}
+    <form method="post" action="{% url 'chores:complete_chore' chore.id %}">
+      {% csrf_token %}<button type="submit">Complete</button>
+    </form>
+    <form method="post" action="{% url 'chores:decline_chore' chore.id %}">
+      {% csrf_token %}<button type="submit">Decline</button>
+    </form>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li>No chores yet.</li>
+  {% endfor %}
 </ul>
 {% endblock %}

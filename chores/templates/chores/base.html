@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Household chores</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav>
-        <a href="{% url 'chores:home' %}">Home</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'chores:create_household' %}">Create household</a>
-            <a href="{% url 'chores:join_household' %}">Join household</a>
-        {% endif %}
+      <a href="{% url 'chores:home' %}">Home</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'chores:create_household' %}">Create household</a>
+      <a href="{% url 'chores:join_household' %}">Join household</a>
+      {% endif %}
     </nav>
     {% block content %}{% endblock %}
-</body>
+  </body>
 </html>
